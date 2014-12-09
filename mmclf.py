@@ -2,7 +2,6 @@ import numpy as np
 from sklearn.utils.extmath import safe_sparse_dot
 import scipy.sparse
 
-
 class ColumnData(object):
     def __init__(self, X):
         self._X = scipy.sparse.csc_matrix(X)
@@ -29,7 +28,7 @@ class SlowLGClassifier(object):
                         1 + 1
             
 class LatentGroupClassifier(object):
-    def __init__(self, max_iter=25, C=1.0, ls_max_iter=30, alpha=.5, sigma=.01):
+    def __init__(self, max_iter=25, C=1.0, ls_max_iter=30, alpha=.5, sigma=.01, groups=[]):
         self.max_iter = max_iter
         self.C = C
         print "initializing .... "	
@@ -38,6 +37,7 @@ class LatentGroupClassifier(object):
         self.ls_max_iter = ls_max_iter
         self.sigma = sigma
         self.alpha = alpha
+        self.groups = groups
 
     def score(self, X, y):
         pred = safe_sparse_dot(X, self.coefs_.T)
@@ -56,75 +56,104 @@ class LatentGroupClassifier(object):
         error_weight = 1. / float(n_samples)
 
         for n_iter in range(self.max_iter):
-            for j in range(n_features):
-                Gj, hj_max, loss = self._derivatives(
-                    n_classes, j, ds, y, error, error_weight) 
-                #print "Coordinate loss:",loss, "Hessian row inf norm:", hj_max 
-                Gj_norm = np.linalg.norm(Gj, 2)
-                Rj = np.linalg.norm(self.coefs_[:,j], 2)
-                #print Gj_norm, Rj
-                
-                Vj = self.coefs_[:,j] - Gj / hj_max
-                vnorm = np.linalg.norm(Vj, 2)
-                if vnorm != 0:
-                    scaling = 1. - self.C / (hj_max * vnorm)
-                else:
-                    scaling = 1.
-                #print scaling
-                if scaling < 0:
-                    scaling = 0
-                D = scaling * Vj - self.coefs_[:,j]
-                #print D
-                #print "Max delta", 
-                dmax = np.max(np.fabs(D))
-                if dmax < 1e-12:
-                    
-                    continue
+            for i in range(n_classes):
+                for group in self.groups:
+                    Gblock=np.zeros((group[1]-group[0]))
+                    hblock=np.zeros((group[1]-group[0]))
 
-                ls_cutoff = np.dot(D, Gj)
+                    # TODO: update here and _derivatives to calc
+                    #   Gblock, hblock, loss and hblock_max more efficiently
+                    #   and make code more human-readable
+                    for ii in range(group[0],group[1]):
+                        Gj, hj, hj_max, loss = self._derivatives(
+                            n_classes, ii, ds, y, error, error_weight) 
+                        Gblock[ii-group[0]]=Gj[i]
+                        hblock[ii-group[0]]=hj[i]
 
-                D_old = np.zeros((n_classes))    
-                step = 1
-                while 1:
-                    Loss_new = self._update_errors(
-                        n_classes, j, ds, y, error, error_weight, D, D_old)    
-                    if step >= self.ls_max_iter:
-                        #if self.ls_max_iter > 1:
-                        #if self.verbose >= 2:
-                        #print "Max steps reached during line search..."
-                        #recompute = 1
-                        break
+                    # calc loss for the block
+                    loss=0
+                    for j in range(group[0],group[1]):
+                        for ii, Xij in ds.get_column(j):
+                            if i==ii:
+                                for r in xrange(n_classes):
+                                    loss += error_weight * error[i,r] * error[i,r]
+
+                    # calc hblock_max
+                    Lpp_max = float('-inf')
+                    for k in xrange(group[1]-group[0]):
+                        Lpp_max = max(Lpp_max, Gblock[k])
+                    Lpp_max *= 2 * error_weight
+                    Lpp_max = min(max(Lpp_max, 1.0e-4), 1e9)
+                    hblock_max = Lpp_max
+
+                    #print "Coordinate loss:",loss, "Hessian row inf norm:", hj_max 
+                    Gblock_norm = np.linalg.norm(Gblock, 2)
+                    Rblock = np.linalg.norm(self.coefs_[i,group[0]:group[1]], 2)
+                    #print Gj_norm, Rj
                     
-                    Rj_new = np.linalg.norm(self.coefs_[:,j] + D)        
-                    if step == 1:
-                        ls_cutoff = self.sigma * self.C * (Rj_new - Rj)
+                    Vblock = self.coefs_[i,group[0]:group[1]] - Gblock / hblock_max
+                    vnorm = np.linalg.norm(Vblock, 2)
+                    if vnorm != 0:
+                        scaling = 1. - self.C / (hblock_max * vnorm)
+                    else:
+                        scaling = 1.
+                    #print scaling
+                    if scaling < 0:
+                        scaling = 0
+                    D = scaling * Vblock - self.coefs_[i,group[0]:group[1]]
+                    #print D
+                    #print "Max delta", 
+                    dmax = np.max(np.fabs(D))
+                    if dmax < 1e-12:
+                        
+                        continue
+
+                    ls_cutoff = np.dot(D, Gblock)
+
+                    D_old = np.zeros((n_classes))    
+                    step = 1
+                    while 1:
+                        Loss_new = self._update_errors(
+                            n_classes, i, group, ds, y, error, error_weight, D, D_old)    
+                        if step >= self.ls_max_iter:
+                            #if self.ls_max_iter > 1:
+                            #if self.verbose >= 2:
+                            #print "Max steps reached during line search..."
+                            #recompute = 1
+                            break
+                        
+                        Rblock_new = np.linalg.norm(self.coefs_[i,group[0]:group[1]] + D)        
+                        if step == 1:
+                            ls_cutoff = self.sigma * self.C * (Rblock_new - Rblock)
+                            ls_cutoff *= self.alpha
+                        #if step == self.ls_max_iter:
+                        #    print "Warning max steps in line search reached"
+                        if Loss_new - loss + self.C * (Rblock_new - Rblock) <= ls_cutoff:
+                            #print "Good break"
+                            break
+                        
                         ls_cutoff *= self.alpha
-                    #if step == self.ls_max_iter:
-                    #    print "Warning max steps in line search reached"
-                    if Loss_new - loss + self.C * (Rj_new - Rj) <= ls_cutoff:
-                        #print "Good break"
-                        break
-                    
-                    ls_cutoff *= self.alpha
-                    D_old = D
-                    D *= self.alpha 
-                    step += 1
+                        D_old = D
+                        D *= self.alpha 
+                        step += 1
 
-                self.coefs_[:,j] += D    
+                    self.coefs_[i,group[0]:group[1]] += D    
             print self.score(X, y)       
                                          
    # def _loss(self, error
-    def _update_errors(self, n_classes, j, ds, y, error, error_weight, D, D_old):
+    def _update_errors(self, n_classes, ii, group, ds, y, error, error_weight, D, D_old):
         Loss_new = 0
-        for i, Xij in ds.get_column(j):
-            tmp = D_old[y[i]] - D[y[i]]
-            for r in xrange(n_classes):
-                if r != y[i]:
-                    
-                    new_error = error[i,r] + (tmp - (D_old[r] - D[r])) * Xij
-                    error[i,r] = new_error
-                    if new_error > 0:
-                        Loss_new += 2 * error_weight * new_error * new_error
+        for j in range(group[0],group[1]):
+            # TODO: change the following two lines to get_row(ii)
+            for i, Xij in ds.get_column(j):
+                if i==ii:
+                    tmp = D_old[y[i]] - D[y[i]]
+                    for r in xrange(n_classes):
+                        if r != y[i]:                    
+                            new_error = error[i,r] + (tmp - (D_old[r] - D[r])) * Xij
+                            error[i,r] = new_error
+                            if new_error > 0:
+                                    Loss_new += 2 * error_weight * new_error * new_error
         return Loss_new                    
 
     def _derivatives(self, n_classes, j, ds, y, error, error_weight):
@@ -148,5 +177,5 @@ class LatentGroupClassifier(object):
         Lpp_max *= 2 * error_weight
         Lpp_max = min(max(Lpp_max, 1.0e-4), 1e9)
         #Lpp_max[0] = min(max(Lpp_max[0], LOWER), UPPER)
-        return Gj, Lpp_max, Loss
+        return Gj, hj, Lpp_max, Loss
 
