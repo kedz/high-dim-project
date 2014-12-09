@@ -32,6 +32,7 @@ class LatentGroupClassifier(object):
     def __init__(self, max_iter=25, C=1.0, ls_max_iter=30, alpha=.5, sigma=.01):
         self.max_iter = max_iter
         self.C = C
+        print "initializing .... "	
         
         # line search params   
         self.ls_max_iter = ls_max_iter
