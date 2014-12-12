@@ -34,53 +34,49 @@ def calculate_loss(ds, y, n_samples, n_features, n_classes,coefs_, lamb, groups)
         for r in xrange(n_classes):
             if y[i] != r:
                 #print i,y[i],r
-                LOSS += max(AW[i,r],0) * max(AW[i,r],0)    
+                LOSS += max(AW[i,r],0) ** 2    
     LOSS/=float(n_samples)
     for group in groups:
         for m in xrange(n_classes):
             LOSS += np.linalg.norm(coefs_[group[0]:group[1],m], 2) * LAMBDA
     return LOSS
  
-def _derivatives(n_classes, j, ds, y, AW, one_over_n):
+def _derivatives(n_classes, j, ds, y, AW, one_over_n, m):
     Gj = np.zeros((n_classes))
     hj = np.zeros((n_classes))
     for r in xrange(n_classes):
         for i, Xij in ds.get_column(j):
             if y[i] != r and AW[i,r] > 0:
-                Gj[y[i]] -= AW[i,r] * Xij
-                Gj[r] += AW[i,r] * Xij
-                hj[y[i]] += Xij * Xij
-                hj[r] += Xij * Xij
-    Lpp_max = -1<<31
-    for k in xrange(n_classes):
-        Gj[k] *= 2 * one_over_n
-        hj[k] *= 2 * one_over_n
-        Lpp_max = max(Lpp_max, hj[k])
-    Lpp_max = min(max(Lpp_max, 1.0e-4), 1e9)
-    return Gj, Lpp_max, hj
+                if y[i] == m:
+                    Gj[y[i]] -= AW[i,r] * Xij
+                    hj[y[i]] += Xij * Xij
+                if r == m:
+                    Gj[r] += AW[i,r] * Xij
+                    hj[r] += Xij * Xij
+    Gj[m] *= 2 * one_over_n
+    hj[m] *= 2 * one_over_n
+    return Gj, hj
 
 def fit(ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups):
-    lamb = 0.05
+    lamb = 0.25
     tol = 1e-3
-    prevl=-1
+    prevl = -1
     for k in xrange(15):
         loss = calculate_loss(ds,y, n_samples,n_features, n_classes,coefs_,lamb,groups)
         if abs(loss-prevl)<tol:
             break
         prevl=loss
         for group in groups:
+            Gblock=np.ones(group[1]-group[0])
             for m in xrange(n_classes):
                 AW = calculate_AW(ds, y, n_samples, n_classes,coefs_)
-                Gblock=np.ones(group[1]-group[0])
-                Vblock=np.ones(group[1]-group[0])
-                Lblock=-1<<31
+                Lblock=1e-4
                 for j in xrange(group[0],group[1]):
-                    Gj, Lj, hj = _derivatives( n_classes, j, ds, y, AW, one_over_n)
-                    Vj = coefs_[j,:] - Gj / Lj
+                    Gj, hj = _derivatives(n_classes, j, ds, y, AW, one_over_n, m)
                     Gblock[j-group[0]]=Gj[m]
-                    Vblock[j-group[0]]=Vj[m]
                     Lblock=max(Lblock,hj[m])
-                Lblock = min(max(Lblock, 1.0e-4), 1e9)
+                Lblock = min(Lblock, 1e9)
+                Vblock=coefs_[group[0]:group[1],m] - Gblock/Lblock
                 muj = lamb/Lblock
                 L2 = np.linalg.norm(Vblock,2)
                 if L2 !=0 :
@@ -98,7 +94,7 @@ def fit(ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups):
                 while max_loop > 0 :
                     #print "coefs",coefs_,"loss",loss
                     coefs_[group[0]:group[1],m] = Wblock_old + alphas*delta
-                    newLoss =  calculate_loss(ds,y, n_samples,n_features, n_classes,coefs_,lamb, groups)
+                    newLoss = calculate_loss(ds,y, n_samples,n_features, n_classes,coefs_,lamb, groups)
                     #print "new coefs", coefs_,"new loss", newLoss
                     if newLoss < loss:
                         print "better",group[0],m
@@ -109,7 +105,7 @@ def fit(ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups):
                     coefs_[group[0]:group[1],m] = Wblock_old
                 print coefs_
 
-def score( X, y, coefs_):
+def score(X, y, coefs_):
     pred = safe_sparse_dot(X, coefs_)
     y_pred = np.argmax(pred, axis=1)
     print "pred =", pred
