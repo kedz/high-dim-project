@@ -26,20 +26,29 @@ def calculate_AW(ds, y, n_samples, n_classes,coefs_):
             AW[i,r]-=safe_sparse_dot(Xi,coefs_[:,y[i]]-coefs_[:,r])
     return AW
 
-def calculate_loss(ds, y, n_samples, n_features, n_classes,coefs_, lamb, groups):
+def calculate_L(ds, y, n_samples, n_features, n_classes,coefs_, lamb, groups):
     AW = calculate_AW(ds,y, n_samples, n_classes,coefs_)
     LOSS = 0
-    LAMBDA = lamb
     for i in xrange(n_samples):
         for r in xrange(n_classes):
             if y[i] != r:
                 #print i,y[i],r
                 LOSS += max(AW[i,r],0) ** 2    
     LOSS/=float(n_samples)
+    return LOSS
+
+def calculate_R(ds, y, n_samples, n_features, n_classes,coefs_, lamb, groups):
+    LOSS=0
     for group in groups:
         for m in xrange(n_classes):
-            LOSS += np.linalg.norm(coefs_[group[0]:group[1],m], 2) * LAMBDA
+            LOSS += np.linalg.norm(coefs_[group[0]:group[1],m], 2)
     return LOSS
+
+def calculate_loss(ds, y, n_samples, n_features, n_classes,coefs_, lamb, groups):
+    l=calculate_L(ds, y, n_samples, n_features, n_classes,coefs_, lamb, groups)
+    r=calculate_R(ds, y, n_samples, n_features, n_classes,coefs_, lamb, groups)
+    newlamb=l*20/r
+    return l+r*lamb, newlamb
  
 def _derivatives(n_classes, j, ds, y, AW, one_over_n, m):
     Gj = np.zeros((n_classes))
@@ -62,7 +71,7 @@ def fit(ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups):
     tol = 1e-3
     prevl = -1
     for k in xrange(15):
-        loss = calculate_loss(ds,y, n_samples,n_features, n_classes,coefs_,lamb,groups)
+        loss, _ = calculate_loss(ds,y, n_samples,n_features, n_classes,coefs_,lamb,groups)
         if abs(loss-prevl)<tol:
             break
         prevl=loss
@@ -83,7 +92,8 @@ def fit(ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups):
                     Wblock=max(1- muj/ np.linalg.norm(Vblock,2),0)*Vblock
                 else:
                     Wblock=np.zeros(group[1]-group[0])
-                loss = calculate_loss(ds,y, n_samples,n_features, n_classes,coefs_,lamb,groups)
+                oldlamb=lamb
+                loss, _= calculate_loss(ds,y, n_samples,n_features, n_classes,coefs_,lamb,groups)
                 print "loss: ", loss
                 Wblock_old = coefs_[group[0]:group[1],m].copy()
                 delta = Wblock - Wblock_old
@@ -91,18 +101,21 @@ def fit(ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups):
                 max_loop = 100
                 alpha = 0.5
                 alphas = 1
+                l=calculate_L(ds, y, n_samples, n_features, n_classes,coefs_, lamb, groups)
                 while max_loop > 0 :
                     #print "coefs",coefs_,"loss",loss
                     coefs_[group[0]:group[1],m] = Wblock_old + alphas*delta
-                    newLoss = calculate_loss(ds,y, n_samples,n_features, n_classes,coefs_,lamb, groups)
+                    newLoss, templamb = calculate_loss(ds,y, n_samples,n_features, n_classes,coefs_,lamb, groups)
                     #print "new coefs", coefs_,"new loss", newLoss
                     if newLoss < loss:
                         print "better",group[0],m
+                        lamb=templamb
                         break
                     alphas *= alpha
                     max_loop -= 1
                 if max_loop ==0:
                     coefs_[group[0]:group[1],m] = Wblock_old
+                    lamb=oldlamb
                 print coefs_
 
 def score(X, y, coefs_):
