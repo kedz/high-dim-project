@@ -58,7 +58,7 @@ def _derivatives(n_classes, j, ds, y, AW, one_over_n, m):
     return Gj, hj
 
 def fit(ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups):
-    lamb = 0.25
+    lamb = 0.0001
     tol = 1e-3
     prevl = -1
     for k in xrange(15):
@@ -77,7 +77,9 @@ def fit(ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups):
                     Lblock=max(Lblock,hj[m])
                 Lblock = min(Lblock, 1e9)
                 Vblock=coefs_[group[0]:group[1],m] - Gblock/Lblock
+                print Vblock
                 muj = lamb/Lblock
+                print muj
                 L2 = np.linalg.norm(Vblock,2)
                 if L2 !=0 :
                     Wblock=max(1- muj/ np.linalg.norm(Vblock,2),0)*Vblock
@@ -161,6 +163,12 @@ groups=((0,3),(3,6),(6,10),(10,12))
 #for x in xrange(12):
 #    groups.append((x,x+1))
 print groups
+
+data=np.load("3ng_train.npz")
+X_train=data["X"].item()
+y_train=data["y"]
+print X_train, y_train
+groups=data["groups"]
 
 X = X_train
 y = y_train
