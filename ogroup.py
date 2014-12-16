@@ -98,11 +98,11 @@ class BaselineGroupLasso(object):
 #                    violation_sum += violation
                 
                     Wgr = self.coefs_[g_start:g_end,r]               
-                    Vgr = Wgr -  Ggr / Lpp_max
+                    Vgr = Wgr - Ggr / Lpp_max
                     Vgr_norm = np.linalg.norm(Vgr, 2)
                     if Vgr_norm != 0:
                         scaling = 1 - self.alpha / (Lpp_max * Vgr_norm )
-                    else: scaling = -float('inf')
+                    else: scaling = 0
 
                     if scaling < 0:
                         scaling = 0
@@ -217,32 +217,32 @@ class BaselineGroupLasso(object):
 
 
 
-    def _derivatives(self, A, ds, y, j, n_classes, error_weight):
-        Gj = np.zeros((n_classes))
-        Hj = np.zeros((n_classes))
-        loss_tmp = 0
-        for i, Xij, in ds.get_column(j):
-            for r in xrange(n_classes):
-                if y[i] != r and A[i, r] > 0:
-                    loss_ir = A[i,r]         
-                    loss_tmp += error_weight * loss_ir * loss_ir
-                    tmp = error_weight * Xij 
-                    tmp2 = tmp * loss_ir
-                    Gj[y[i]] -= tmp2
-                    Gj[r] += tmp2
-                    tmp2 = tmp * Xij
-                    Hj[y[i]] += tmp2
-                    Hj[r] += tmp2
-        Lpp_max =-1<<31 
-     
-        for r in xrange(n_classes):
-            Gj[r] *= 2
-            Lpp_max = max(Lpp_max, Hj[r])
-        Lpp_max *= 2
-        Lpp_max = min(max(Lpp_max, LOWER), UPPER)
-        return Gj, Lpp_max, loss_tmp 
+#    def _derivatives(self, A, ds, y, j, n_classes, error_weight):
+#        Gj = np.zeros((n_classes))
+#        Hj = np.zeros((n_classes))
+#        loss_tmp = 0
+#        for i, Xij, in ds.get_column(j):
+#            for r in xrange(n_classes):
+#                if y[i] != r and A[i, r] > 0:
+#                    loss_ir = A[i,r]         
+#                    loss_tmp += error_weight * loss_ir * loss_ir
+#                    tmp = error_weight * Xij 
+#                    tmp2 = tmp * loss_ir
+#                    Gj[y[i]] -= tmp2
+#                    Gj[r] += tmp2
+#                    tmp2 = tmp * Xij
+#                    Hj[y[i]] += tmp2
+#                    Hj[r] += tmp2
+#        Lpp_max =-1<<31 
+#     
+#        for r in xrange(n_classes):
+#            Gj[r] *= 2
+#            Lpp_max = max(Lpp_max, Hj[r])
+#        Lpp_max *= 2
+#        Lpp_max = min(max(Lpp_max, LOWER), UPPER)
+#        return Gj, Lpp_max, loss_tmp 
 
-    def _derivatives_feat(self, A, ds, y, j, r, n_classes, error_weight):
+    def _derivatives_feat(self, A, ds, y, j, r_select, n_classes, error_weight):
         Gj = np.zeros((n_classes))
         Hj = np.zeros((n_classes))
         loss_tmp = 0
@@ -260,7 +260,7 @@ class BaselineGroupLasso(object):
                     Hj[r] += tmp2
 
         
-        return Gj[r] * 2, Hj[r] * 2, loss_tmp
+        return Gj[r_select] * 2, Hj[r_select] * 2, loss_tmp
 #        for r in xrange(n_classes):
 #            Gj[r] *= 2
 #            Lpp_max = max(Lpp_max, Hj[r])
