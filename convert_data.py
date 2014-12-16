@@ -80,33 +80,72 @@ from sklearn.cluster import KMeans
 #for dist, nbors in zip(distance, neighbors):
 #    if nbors[0] in used:
 #        continue
-n_cluster = 100
+n_cluster = 500
 km = KMeans(
-    n_clusters=30, init='k-means++', n_init=10, max_iter=300,
+    n_clusters=n_cluster, init='k-means++', n_init=10, max_iter=300,
     tol=0.0001, precompute_distances=True, verbose=1, random_state=None,
     copy_x=True, n_jobs=24) 
 km.fit(X_train)
 
+n_classes = np.unique(y_train).shape[0]
 n_dims = 0
-index_sets = set()
+index_sets = list()
+
+
 for i in range(n_cluster):
-    #print "cluster", i
     index_set = set()
+    label_counts = np.zeros((n_classes))
     for x in np.where(km.labels_ == i)[0]:
+        label_counts[y_train[x]] += 1
         #print "\tx =", x
         for feat in X_train.getrow(x).indices:
             index_set.add(feat)
-#    index_set = [idx for idx in np.where(km.labels_ == i)[0]]
-    index_set = list(index_set)
-    index_set.sort()
-    #print index_set
 
+#    index_set = [idx for idx in np.where(km.labels_ == i)[0]]
+    print i, 
+    label_counts / np.sum(label_counts).astype(np.float64)
+    index_set = list(index_set)
     if len(index_set) > 0:
-        n_dims += len(index_set)       # print "\t", idx
-        index_sets.add(tuple(index_set))
+        purity = label_counts / np.sum(label_counts).astype(np.float64)
+        index_sets.append((purity, index_set))
+
+index_sets.sort(key=lambda x: np.max(x[0]), reverse=True)
+
+topn = 200
+for purity, indices in index_sets[:topn]:
+    print purity         
+
+index_sets = [tuple(sorted(list(index_set)))
+              for p, index_set in index_sets[:topn]]
+
+n_dims = 0
+for index_set in index_sets:
+    n_dims += len(index_set)
 
 print "Num of index sets:", len(index_sets)
 print "Total dimensions:", n_dims
+
+
+#for i in range(n_cluster):
+#    #print "cluster", i
+#    index_set = set()
+#    label_counts = np.zeros((n_classes))
+#    for x in np.where(km.labels_ == i)[0]:
+#        label_counts[y_train[x]] += 1
+#        #print "\tx =", x
+#        for feat in X_train.getrow(x).indices:
+#            index_set.add(feat)
+##    index_set = [idx for idx in np.where(km.labels_ == i)[0]]
+#    print i, 
+#    label_counts / np.sum(label_counts).astype(np.float64)
+#    index_set = list(index_set)
+#    index_set.sort()
+#    #print index_set
+#
+#    if len(index_set) > 0:
+#        n_dims += len(index_set)       # print "\t", idx
+#        index_sets.add(tuple(index_set))
+#
 
 
 
@@ -166,3 +205,4 @@ with open("vocab.txt", "w") as f:
     for fname in vec.feature_names_:
         f.write("{}\n".format(fname))
         #print fname
+
