@@ -14,11 +14,11 @@ import numpy as np
 from sklearn.utils.extmath import safe_sparse_dot
 
 m_classes = 10
-m_features = 100
+m_features = 50
 m_groups = 10
 m_no_in_each_group = m_features/m_groups
 multiple = 1.3
-m_samples = 1000
+m_samples = 300
 attemp = 0
 
 while 1:
