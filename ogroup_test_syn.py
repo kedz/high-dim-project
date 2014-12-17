@@ -21,6 +21,8 @@ multiple = 1.3
 m_samples = 300
 attemp = 0
 
+np.set_printoptions(precision=4)
+
 while 1:
     attemp +=1
     print 'attemp', attemp
@@ -59,10 +61,10 @@ y_train = y_pred
 print "### BASELINE GROUP LASSO in pure python/numpy###"
 X = X_train
 y = y_train
-clf = ogroup.BaselineGroupLasso(max_iter=30, alpha=.5, max_steps=30)
+clf = ogroup.BaselineGroupLasso(max_iter=30, alpha=.8, max_steps=30)
 clf.fit(X, y, groups)
 print "Acc:", clf.score(X, y)
-print clf.coefs_
+print (clf.coefs_)
 
 
 print "### Equivalent Lightning Cython Implementation ###"
@@ -77,21 +79,5 @@ light_clf = CDClassifier(penalty="l1/l2",
                          verbose=3,
                          random_state=0).fit(X, y)
 print "Acc:", light_clf.score(X, y)
-print light_clf.coef_.T
+print (light_clf.coef_.T)
 
-
-exit(0)
-
-import numpy as np
-data = np.load('3ng_train.npz')
-X = data['X'].item()
-Xaug = data['Xaug'].item()
-y = data['y']
-groups = data['groups']
-clf.fit(Xaug, y, groups)
-print clf.score(Xaug, y)
-
-light_clf.verbose=1
-light_clf.fit(X, y)
-
-print light_clf.score(X, y)

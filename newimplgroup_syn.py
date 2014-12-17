@@ -77,19 +77,18 @@ def fit(ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups):
                     Lblock=max(Lblock,hj[m])
                 Lblock = min(Lblock, 1e9)
                 Vblock=coefs_[group[0]:group[1],m] - Gblock/Lblock
-                print Vblock
+                #print Vblock
                 muj = lamb/Lblock
-                print muj
+                #print muj
                 L2 = np.linalg.norm(Vblock,2)
                 if L2 !=0 :
                     Wblock=max(1- muj/ np.linalg.norm(Vblock,2),0)*Vblock
                 else:
                     Wblock=np.zeros(group[1]-group[0])
                 loss = calculate_loss(ds,y, n_samples,n_features, n_classes,coefs_,lamb,groups)
-                print "loss: ", loss
                 Wblock_old = coefs_[group[0]:group[1],m].copy()
                 delta = Wblock - Wblock_old
-                print "delta", delta
+                #print "delta", delta
                 max_loop = 10
                 alpha = 0.5
                 alphas = 1
@@ -99,13 +98,14 @@ def fit(ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups):
                     newLoss = calculate_loss(ds,y, n_samples,n_features, n_classes,coefs_,lamb, groups)
                     #print "new coefs", coefs_,"new loss", newLoss
                     if newLoss < loss:
-                        print "better",group[0],m
+                        print "loss: ", loss
+                        #print "better",group[0],m
                         break
                     alphas *= alpha
                     max_loop -= 1
                 if max_loop ==0:
                     coefs_[group[0]:group[1],m] = Wblock_old
-                print coefs_
+    print coefs_
 
 def score(X, y, coefs_):
     pred = safe_sparse_dot(X, coefs_)
@@ -118,12 +118,12 @@ def score(X, y, coefs_):
 
 np.set_printoptions(precision=3)
 
-m_classes = 6
-m_features = 30
-m_groups = 4
+m_classes = 5
+m_features = 25
+m_groups = 5
 m_no_in_each_group = m_features/m_groups
 multiple = 1.3
-m_samples = 60
+m_samples = 150
 attemp = 0
 
 while 1:
@@ -173,4 +173,26 @@ ds = ColumnData(X)
 coefs_ = np.zeros((n_features, n_classes))
 
 fit( ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups)
-score (X,y,coefs_)
+s =  score (X,y,coefs_)
+print "score = ", s
+
+clf_max_iter=300
+clf_tol = 1e-3
+print "### Equivalent Lightning Cython Implementation ###"
+light_clf = CDClassifier(penalty="l1/l2",
+                         loss="squared_hinge",
+                         multiclass=True,
+                         max_iter=clf_max_iter,
+                         alpha=0.5, # clf.alpha,
+                         C=1.0 / X.shape[0],
+                         tol=clf_tol,
+                         permute=False,
+                         verbose=3,
+                         random_state=0).fit(X, y)
+print "Acc:", light_clf.score(X, y)
+print light_clf.coef_.T
+
+
+
+
+
