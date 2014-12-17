@@ -6,6 +6,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from time import time
 from lightning.classification import CDClassifier
 import random
+import sys
 
 class ColumnData(object):
     def __init__(self, X):
@@ -117,12 +118,12 @@ def score(X, y, coefs_):
 
 np.set_printoptions(precision=3)
 
-m_classes = 10
+m_classes = 6
 m_features = 30
-m_groups = 10
+m_groups = 4
 m_no_in_each_group = m_features/m_groups
 multiple = 1.3
-m_samples = 300
+m_samples = 60
 attemp = 0
 
 while 1:
@@ -155,6 +156,8 @@ print 'weights', weights
 print 'groups', groups
 print 'y_pred', y_pred
 print '======================================================'
+print 'press enter to start regression'
+sys.stdin.readline()
 
 X_train = X
 y_train = y_pred
