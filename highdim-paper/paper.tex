@@ -19,6 +19,9 @@
 \usepackage{times}
 \usepackage{url}
 \usepackage{latexsym}
+\usepackage{graphicx}
+
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
 %\setlength\titlebox{5cm}
 
@@ -55,7 +58,6 @@
 
 \section{Introduction}
 
-
 \section{Background}
 
 \subsection{Latent Group Lasso}
@@ -72,7 +74,23 @@
 
 \subsubsection{Group Identification}
 
-\subsection{artificial data}
+\subsection{Artificial data}
+
+For the datasets described above, we can't tell with 100 percent confidence that the datasets follow the assumptions of the group structures for the features. And even if they are indeed structured that way, we maybe wrong with the method of coming up with the groups. These issues make it difficult to access our model.\\ 
+
+To get rid of all these problems and validate the effectiveness of our model, we created artificial data that followed the underlying assumptions of the model. First, we generate a sparse weight matrix M to represent the relationship between features and classes. The weight matrix M has an internal structure in which features are grouped together. And also, only a small number of groups have non-zero weights. This makes the matrix sparse.\\ 
+
+\begin{figure}[ht]
+\begin{center}
+	\includegraphics[natwidth=200, natheight=306]{m_img}
+	\caption{Group-wise sparse weight matrix generated: 6 classes, 30 features in 5 groups}
+\end{center}
+\end{figure}
+
+Then we generate random vectors, each of which has the length of the number of all features, and calculate dot product with the weight matrix M to get the class assignments for these random vectors. The random vetors X and the class assignments Y make up the training data set. \\
+
+Our goal is to infer this weight matrix M from X and Y using our model. By generating the data set using this method, we can test the effectiveness of our model on a noiseless dataset with right underlying assumptions.\\ 
+
 
 \section{Results}
 
