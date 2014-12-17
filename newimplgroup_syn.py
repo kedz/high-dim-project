@@ -176,6 +176,8 @@ fit( ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups)
 s =  score (X,y,coefs_)
 print "score = ", s
 
+print '======================================================'
+
 clf_max_iter=300
 clf_tol = 1e-3
 print "### Equivalent Lightning Cython Implementation ###"

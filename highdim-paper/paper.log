@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.8.27)  17 DEC 2014 17:37
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.8.27)  17 DEC 2014 18:38
 entering extended mode
  %&-line parsing enabled.
 **paper.tex
@@ -103,30 +103,36 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 63.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 70.
 
-Underfull \hbox (badness 1210) in paragraph at lines 79--80
+Underfull \hbox (badness 10000) in paragraph at lines 70--71
+
+ []
+
+
+Underfull \hbox (badness 2035) in paragraph at lines 72--73
+[]\OT1/ptm/m/n/10.95 In our model, we min-i-mize the fol-low-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--79
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
+
+ []
+
+
+Underfull \hbox (badness 1210) in paragraph at lines 92--93
 \OT1/ptm/m/n/10.95 with 100 per-cent con-fi-dence that the datasets
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 81--82
-
- []
-
-File: m_img.jpg Graphic file (type eps)
-<m_img.jpg>
-Underfull \hbox (badness 1052) in paragraph at lines 90--91
-[]\OT1/ptm/m/n/10.95 Then we gen-er-ate ran-dom vec-tors, each of
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 90--91
-
  []
 
 
@@ -134,18 +140,41 @@ Underfull \hbox (badness 10000) in paragraph at lines 92--93
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--95
+
+ []
+
+File: m_img.jpg Graphic file (type eps)
+<m_img.jpg>
+Underfull \hbox (badness 1052) in paragraph at lines 103--104
+[]\OT1/ptm/m/n/10.95 Then we gen-er-ate ran-dom vec-tors, each of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--104
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 105--106
+
+ []
+
 [1
 
 
 
+] [2
+
 ] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 745 strings out of 495062
- 9183 string characters out of 1182644
- 57304 words of memory out of 3000000
- 3950 multiletter control sequences out of 15000+50000
- 10795 words of font info for 35 fonts, out of 3000000 for 9000
+ 749 strings out of 495062
+ 9253 string characters out of 1182644
+ 60304 words of memory out of 3000000
+ 3954 multiletter control sequences out of 15000+50000
+ 11517 words of font info for 38 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 25i,10n,19p,457b,283s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 25i,10n,19p,616b,283s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on paper.dvi (1 page, 2956 bytes).
+Output written on paper.dvi (2 pages, 5052 bytes).
