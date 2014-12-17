@@ -14,16 +14,16 @@ import numpy as np
 from sklearn.utils.extmath import safe_sparse_dot
 
 m_classes = 10
-m_features = 30
+m_features = 100
 m_groups = 10
 m_no_in_each_group = m_features/m_groups
-multiple = 2
-m_samples = 200
+multiple = 1.3
+m_samples = 1000
 attemp = 0
 
 while 1:
     attemp +=1
-    print 'sample data generation attemp', attemp
+    print 'attemp', attemp
     groups = []
     weights = np.zeros((m_features,m_classes))
     idx = 0

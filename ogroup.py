@@ -244,19 +244,21 @@ class BaselineGroupLasso(object):
 
     def _derivatives_feat(self, A, ds, y, j, r_select, n_classes, error_weight):
         Gj = np.zeros((n_classes))
+        #print 'n_classes', n_classes
         Hj = np.zeros((n_classes))
         loss_tmp = 0
         for i, Xij, in ds.get_column(j):
             for r in xrange(n_classes):
-                if y[i] != r and A[i, r] > 0:
+                yi = y[i]
+                if yi != r and A[i, r] > 0:
                     loss_ir = A[i,r]         
                     loss_tmp += error_weight * loss_ir * loss_ir
                     tmp = error_weight * Xij 
                     tmp2 = tmp * loss_ir
-                    Gj[y[i]] -= tmp2
+                    Gj[yi] -= tmp2
                     Gj[r] += tmp2
                     tmp2 = tmp * Xij
-                    Hj[y[i]] += tmp2
+                    Hj[yi] += tmp2
                     Hj[r] += tmp2
 
         
