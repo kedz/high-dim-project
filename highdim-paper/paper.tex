@@ -20,6 +20,8 @@
 \usepackage{url}
 \usepackage{latexsym}
 \usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[]{algorithm2e}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
@@ -60,9 +62,133 @@
 
 \section{Background}
 
-\subsection{Latent Group Lasso}
 
 \subsection{Multiclass Classification with Group Lasso}
+
+The task of multiclass classification involves the prediction of a class label
+$l$ where the number of possible labels is $k>2$. More often than not, the 
+original problem is transformed into $k$ binary classification problems, i.e.
+$1$--vs.--all classification and positive prediction with the highest 
+confidence is selected as the label. This approach has the disadvantage of
+having to train $k$ different models.
+
+An alternative formulation, direct multiclass classification, tackles this 
+problem directly by solving the following $\operatorname{argmax}$ problem:
+$$y_i = \operatorname{argmax}_c W_{:c}^T x_i $$
+where $W \in \mathcal{R}^{p \times k}$ is a weight matrix, with $W_{ij}$
+corresponding to the $i$-th feature of class $j$. In this paper, we refer
+to features as elements in the instance data $x$. A feature in $x$ is
+associated with $k$ weights in $W$, one for each class.
+
+
+The decision function above suggests a max-margin style loss function. More
+specifically, we use the squared hinge loss:
+
+$$ l(W) = \sum_{i=1}^n \sum_{r\ne y_i}^k 
+    \max\left(1 - (W_{:y_i}^Tx_i - W_{:r}^Tx_i), 0\right)^2 $$
+
+The minimization of $l$ directly will lead to a minimizer $W^*$ that is
+dense. Sparse solutions are often explicitly sought, with model compactness
+leading to fast prediction at test time. In order to obtain a sparse $W^*$,
+a regularization term $r(W)$ is often applied, yielding the objective 
+function:
+
+$$\min_W l(W) + r(W).$$
+
+Many choices are available for the regularizer $r$. In (ref ???), they use
+the group lasso, where each row in $W$ is a group. The associated regularizer 
+then is $r(W) = \lambda\sum_j^p \|W_{j:}\|_2$ where $\lambda$ is a parameter
+that adjusts the strength of the regularization.
+This has the effect of producing a few rows of non-zero values in $W$;
+since each row corresponds to an individual feature, the optimal sparse $W^*$
+yields a fast-evaluating decision function, i.e. most features are 
+ignored at test time.
+
+To minimize this multiclass classification group lasso objective, ??? use 
+coordiante descent, iteratively solving a sub-problem with respect to a 
+single group. Figure ? shows a general outline of algorithm that involves
+computing the partial gradient with respect to the 
+current group $j$, the prox
+operator of the L2 norm, and a final line search to identify an appropriate
+step size for the current update.
+
+\begin{algorithm}
+ \For{$i \gets 1, \ldots, max\;iters $}{
+     \For{$j \gets 1, \ldots, p$}{
+        Compute gradient $l^\prime(W)_{j:}$\\
+        Choose $\mathcal{L}_j$\\
+        Compute \\
+        $\;\;\;\;V_j = W_{j:} - \frac{1}{\mathcal{L}_j}l^\prime(W)_{j:}$\\
+        $\;\;\;\;W_{j:}^* 
+          = \operatorname{Prox}_{\frac{\lambda}{\mathcal{L}_j}\|\cdot\|_j}
+         (V_j)$\\
+
+         $\;\;\;\;\delta = W_{j:}^* - W_{j:}$\\
+        Choose $\alpha$\\
+        $W_{j:} \gets W_{j:} + \alpha \delta$\\
+
+    }
+ }
+\end{algorithm}
+
+Efficient computation of this objective is possible by storing current 
+loss for each data point. Let $A$ be an $n\times k$ matrix where the 
+$i,r$-th element corresponds to 
+ $(1-(W_{:y_i}^Tx_i - W_{:r}x_i).$
+ The gradient can then be calculated as 
+ $l^\prime(W)_{j} = \frac{2}{n}\sum_{i=1}^n\sum_{r\ne y_i}
+ \max(A_{ir}, 0)(x_{ij}e_{y_i} - x_{ij} e_r)$
+where $e_r$ is a $k$ dimensional vector with zeroes everywhere except for a 1
+at the $r$-th position. We only have to examine elements in $A$ for which 
+the corresponding $x_{ij}$ is non-zero. When $x_{i}$ is sparse, more often
+than not $x_{ij}$ is zero and can be ignored.
+
+
+
+\subsection{Latent Group Lasso}
+
+One limitation of group lasso is that it assumes that group assignments are
+non-overlapping. In some domains, this can be too restrictive an assumption.
+For example, in document classification, individual words are used as features.
+If we were to construct groupings of these features, we might run into a case
+where one word could reasonably be added to several groups. The overlapping or
+latent group lasso was introduced to handled such cases.
+
+??? develop a theoretical justification for the latent group lasso, as well
+as its equivalence to a regular group lasso in a higher dimensional space.
+Let $\mathcal{G}$ be the set of (possibly overlapping) groups,
+where $g \in \mathcal{G}$ is a set of indices of covariates associated with 
+that group. 
+Let our
+data consist of vectors $x_i$ in $p$ dimensions, and let $w$ be the 
+corresponding weight vector in $p$ dimensions that we would like to learn.
+Finally, define $\operatorname{supp}(v)$ to be the support of $v$, i.e.
+the indices of the non-zero elements in $v$.
+
+
+For each group
+$g \in \mathcal{G}$ we associate a latent vector $v^g \in \mathcal{R}^p$ where
+$\operatorname{supp}(v^g) = g$, i.e. the nonzero elements in the $v^g$ correspond
+to the indices in the group $g$. 
+The original weight vector $w$ can be
+interpreted as a sum of the latent vectors, or
+$w = \sum_{g \in \mathcal{G}} v^g$. 
+??? arrive at the following minimization
+problem 
+$$ \min_{w, v^g} l(w) + \lambda \sum_{g \in \mathcal{G}} d_g \|v^g \|_2 $$
+$$\mathrm{s.t.}\;\;\; w = \sum_g v^g$$ 
+
+
+
+??? show that when the original problem is regression, 
+$w^Tx = \left(\sum_g v^g\right)^Tx = \hat{v}^T \hat{x}$ where 
+$\hat{v} = (v^{g})_{g \in \mathcal{G}}$ and
+$\hat{x} = \bigoplus_{g \in \mathcal{G} } (x_i)_{i \in g}$, i.e. $\hat{x}$ is
+the restrictions of each $g$ stacked on top of each other. $\hat{x}, \hat{v}$ 
+have dimension $\sum_{g \in \mathcal{G}} |g|$ 
+In this formulation, the optimal $\hat{v}^*$ can be found using regular 
+non-overlapping group lasso. 
+
 
 
 \section{Our Model}
