@@ -61,7 +61,7 @@ y_train = y_pred
 print "### BASELINE GROUP LASSO in pure python/numpy###"
 X = X_train
 y = y_train
-clf = ogroup.BaselineGroupLasso(max_iter=30, alpha=.8, max_steps=30)
+clf = ogroup.BaselineGroupLasso(max_iter=30, alpha=.1, max_steps=30)
 clf.fit(X, y, groups)
 print "Acc:", clf.score(X, y)
 print (clf.coefs_)
