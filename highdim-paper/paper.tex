@@ -22,6 +22,8 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage[]{algorithm2e}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
@@ -82,7 +84,7 @@ In section 2, we will provide some background on latent group lasso and
 multiclass classification. Latent group Lasso is based on applying the usual 
 group Lasso penalty on a set of latent variables when groups are overlapping.
 In section 3, we will present our model, which uses hinge loss for training classifiers. 
-The following sections will include detailed explanations of our datasets and the 
+The latter sections will include detailed explanations of our datasets and the 
 results we gathered.
 
 \section{Background}
@@ -262,19 +264,25 @@ Our goal is to infer this weight matrix W from X and Y using our model. By gener
 
 Shape Recovery. One of the main indicator of the effectiveness of our model is to see whether the calculated weight matrix is sparse group-wise. Our experiments show so. The following figures shows in a typical trial, the generated target weight matrix and the recovered weight matrix by our model. By comparing them side by side, we can tell that their sparsity patterns are similar. 
 
-\begin{figure}[ht]
-\begin{center}
-	\includegraphics[width=5cm, natwidth=200, natheight=307]{m1_img}
-	\caption{Target group-wise sparse weight matrix generated: 5 classes, 25 features in 5 groups}
-\end{center}
-\end{figure}
 
 \begin{figure}[ht]
-\begin{center}
-	\includegraphics[width=8cm,natwidth=200, natheight=186]{m2_img}
-	\caption{Weight matrix calculated from the training data. It's similar to the one generated.}
-\end{center}
-\end{figure} 
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{m1_img}
+  \caption{Target group-wise sparse weight matrix generated: 5 classes, 25 features in 5 groups}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{m2_img}
+  \caption{Weight matrix calculated from the training data. It's similar to the one generated.}
+  \label{fig:sub2}
+\end{subfigure}
+\caption{add caption}
+\label{fig:test}
+\end{figure}
+
 
 The different weights between the calculated matrix and the target matrix can be due to many factors. First, sample coverage is a major factor. In our simulation data, the sample size is small. Limited by the time complexity of the algorithm, it's difficult to complete the computation for a very large sample size in a reasonable time. Also, the sampling is random. There is no guaranteed that the inferred weights leads to the target weights. \\   
 
