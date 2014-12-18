@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  18 DEC 2014 00:12
+=======
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.8.27)  17 DEC 2014 22:51
+>>>>>>> FETCH_HEAD
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -71,6 +75,7 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip44
@@ -80,10 +85,22 @@ For additional information on amsmath, use the `?' option.
 Package: amstext 2000/06/29 v2.01
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsgen.sty
+=======
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip44
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+>>>>>>> FETCH_HEAD
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks15
 \ex@=\dimen105
 ))
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen106
@@ -115,6 +132,39 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \row@=\count97
 \column@=\count98
 \maxfields@=\count99
+=======
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen106
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count87
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count88
+\leftroot@=\count89
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count90
+\DOTSCASE@=\count91
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen107
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count92
+\c@MaxMatrixCols=\count93
+\dotsspace@=\muskip11
+\c@parentequation=\count94
+\dspbrk@lvl=\count95
+\tag@help=\toks16
+\row@=\count96
+\column@=\count97
+\maxfields@=\count98
+>>>>>>> FETCH_HEAD
 \andhelp@=\toks17
 \eqnshift@=\dimen108
 \alignsep@=\dimen109
@@ -126,6 +176,7 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \multlinegap=\skip45
 \multlinetaggap=\skip46
 \mathdisplay@stack=\toks19
+<<<<<<< HEAD
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
@@ -141,6 +192,27 @@ Package: xspace 2009/10/20 v1.13 Space after command names (DPC,MH)
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/relsize/relsize.sty
 Package: relsize 2013/03/29 ver 4.1
+=======
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+) (./algorithm2e.sty
+Package: algorithm2e 2013/01/06 v5.00 algorithms environments
+\c@AlgoLine=\count99
+
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texmf-texlive/tex/latex/tools/xspace.sty
+Package: xspace 2006/05/08 v1.12 Space after command names (DPC,MH)
+)
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/relsize.sty
+Package: relsize 2003/07/04 ver 3.1
+
+
+Package relsize Warning: Failed to get list of font sizes.
+(relsize)                Falling back to old definition. on input line 81.
+
+>>>>>>> FETCH_HEAD
 )
 ********************************************************
 Package `algorithm2e' Release 5.0 -- january 06 2013 --
@@ -177,14 +249,21 @@ subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 \algoheightrule=\skip60
 \algotitleheightruledefault=\skip61
 \algotitleheightrule=\skip62
+<<<<<<< HEAD
 \c@algocfline=\count101
 \c@algocfproc=\count102
 \c@algocf=\count103
+=======
+\c@algocfline=\count100
+\c@algocfproc=\count101
+\c@algocf=\count102
+>>>>>>> FETCH_HEAD
 \algocf@algoframe=\box34
 \algocf@algobox=\box35
 ) (./paper.aux)
 \openout1 = `paper.aux'.
 
+<<<<<<< HEAD
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
 LaTeX Font Info:    ... okay on input line 52.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
@@ -199,6 +278,22 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
 LaTeX Font Info:    ... okay on input line 52.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 52.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+=======
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 49.
+ (/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
+>>>>>>> FETCH_HEAD
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 ) (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -261,6 +356,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+<<<<<<< HEAD
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 53.
 LaTeX Font Info:    Try loading font information for U+lasy on input line 53.
 
@@ -270,10 +366,22 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 53.
 LaTeX Font Info:    Try loading font information for OT1+pcr on input line 53.
+=======
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 50.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 50.
+
+(/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 50.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 50.
+>>>>>>> FETCH_HEAD
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
+<<<<<<< HEAD
 Underfull \hbox (badness 1596) in paragraph at lines 65--73
 \OT1/ptm/m/n/10.95 of on-line in-for-ma-tion, text cat-e-go-riza-tion has
  []
@@ -281,9 +389,26 @@ Underfull \hbox (badness 1596) in paragraph at lines 65--73
 
 Underfull \hbox (badness 3547) in paragraph at lines 65--73
 \OT1/ptm/m/n/10.95 news sto-ries, to find in-ter-est-ing in-for-ma-tion
+=======
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 66.
+
+Overfull \hbox (3.3661pt too wide) detected at line 88
+\OML/cmm/m/it/10.95 l\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 W\OT1/cmr/m/n/10.9
+5 ) = [] [] [] [][]
  []
 
 
+Underfull \hbox (badness 3826) in paragraph at lines 134--145
+\OT1/ptm/m/n/10.95 si-ble by stor-ing cur-rent loss for each data
+>>>>>>> FETCH_HEAD
+ []
+
+[1
+
+
+
+<<<<<<< HEAD
 Underfull \hbox (badness 1590) in paragraph at lines 65--73
 \OT1/ptm/m/n/10.95 on the WWW, and to guide a user's search
  []
@@ -300,6 +425,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--80
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 91.
+=======
+]
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+
+ []
+
+
+Underfull \hbox (badness 2035) in paragraph at lines 198--199
+[]\OT1/ptm/m/n/10.95 In our model, we min-i-mize the fol-low-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
+>>>>>>> FETCH_HEAD
 
 Overfull \hbox (3.3661pt too wide) detected at line 113
 \OML/cmm/m/it/10.95 l\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 W\OT1/cmr/m/n/10.9
@@ -308,6 +447,10 @@ Overfull \hbox (3.3661pt too wide) detected at line 113
 
 [1{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
+<<<<<<< HEAD
+=======
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+>>>>>>> FETCH_HEAD
 
 
 ]
@@ -316,21 +459,35 @@ Underfull \hbox (badness 3826) in paragraph at lines 159--170
  []
 
 
+<<<<<<< HEAD
 Underfull \hbox (badness 10000) in paragraph at lines 221--222
+=======
+Underfull \hbox (badness 10000) in paragraph at lines 204--205
+>>>>>>> FETCH_HEAD
 
  []
 
 
+<<<<<<< HEAD
 Underfull \hbox (badness 2035) in paragraph at lines 223--224
 []\OT1/ptm/m/n/10.95 In our model, we min-i-mize the fol-low-ing
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 223--224
+=======
+Underfull \hbox (badness 1210) in paragraph at lines 216--217
+\OT1/ptm/m/n/10.95 with 100 per-cent con-fi-dence that the datasets
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+>>>>>>> FETCH_HEAD
 
  []
 
 
+<<<<<<< HEAD
 Underfull \hbox (badness 10000) in paragraph at lines 229--230
 
  []
@@ -347,10 +504,26 @@ Underfull \hbox (badness 1210) in paragraph at lines 243--244
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 243--244
+=======
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+
+ []
+
+[2]
+File: m_img.jpg Graphic file (type eps)
+ <m_img.jpg>
+Underfull \hbox (badness 1052) in paragraph at lines 227--228
+[]\OT1/ptm/m/n/10.95 Then we gen-er-ate ran-dom vec-tors, each of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 227--228
+>>>>>>> FETCH_HEAD
 
  []
 
 
+<<<<<<< HEAD
 Underfull \hbox (badness 10000) in paragraph at lines 245--246
 
  []
@@ -360,14 +533,47 @@ File: m_img.jpg Graphic file (type jpg)
  <use m_img.jpg>
 Package pdftex.def Info: m_img.jpg used on input line 249.
 (pdftex.def)             Requested size: 200.7495pt x 307.14674pt.
+=======
+Underfull \hbox (badness 10000) in paragraph at lines 229--230
+>>>>>>> FETCH_HEAD
 
 Underfull \hbox (badness 1052) in paragraph at lines 254--255
 []\OT1/ptm/m/n/10.95 Then we gen-er-ate ran-dom vec-tors, each of
  []
 
+<<<<<<< HEAD
 
 Underfull \hbox (badness 10000) in paragraph at lines 254--255
 
+ []
+=======
+File: m1_img.png Graphic file (type eps)
+<m1_img.png>
+File: m2_img.png Graphic file (type eps)
+ <m2_img.png>
+Overfull \hbox (8.53592pt too wide) in paragraph at lines 249--250
+ [] 
+ []
+
+
+Underfull \hbox (badness 2205) in paragraph at lines 254--255
+\OT1/ptm/m/n/10.95 that the in-ferred weights leads to the tar-get
+ []
+
+>>>>>>> FETCH_HEAD
+
+Underfull \hbox (badness 10000) in paragraph at lines 254--255
+
+<<<<<<< HEAD
+Underfull \hbox (badness 10000) in paragraph at lines 256--257
+
+ []
+=======
+ []
+
+
+Underfull \hbox (badness 2512) in paragraph at lines 256--257
+\OT1/ptm/m/n/10.95 vec-tors from the un-der-ly-ing model where it
  []
 
 
@@ -375,8 +581,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 256--257
 
  []
 
+[3] [4
+>>>>>>> FETCH_HEAD
+
 [3 <./m_img.jpg>] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
+<<<<<<< HEAD
  3713 strings out of 493117
  51044 string characters out of 6135433
  143653 words of memory out of 5000000
@@ -405,3 +615,14 @@ PDF statistics:
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
+=======
+ 2741 strings out of 495062
+ 35372 string characters out of 1182644
+ 114834 words of memory out of 3000000
+ 5913 multiletter control sequences out of 15000+50000
+ 12963 words of font info for 43 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 27i,15n,20p,616b,321s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on paper.dvi (4 pages, 15500 bytes).
+>>>>>>> FETCH_HEAD
