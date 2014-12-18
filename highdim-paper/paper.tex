@@ -236,7 +236,27 @@ The first term is the multiclass squared hinge loss function. We want the dot pr
 
 \subsection{Newsgroup Data}
 
+We experiment on the 20 newsgroups data, a collection of topically grouped 
+email messages. 
+Because we were having issues with speed, we selected 3 topics yielding
+about 1600 documents evenly split.
+To transform the documents into a vector representation 
+suitable for our task, we first filter out any non alpha-numeric characters
+and message headers. Words were then stemmed with the Porter stemmer. 
+Words occuring fewer than 5 times were removed.
+We finally convert each document into a vector of tf-idf weights.
+The final dimensionality of this data was about 2,600.
+
 \subsubsection{Group Identification}
+
+To create groups, we first clustered the documents using k-means clustering.
+For each cluster we formed a feature group by taking the complete set of 
+non-zero features for each document in the group.
+
+We then used these feature groups to created a higher dimensional dataset of
+duplicate features with non-overlapping groups, so that we could apply our
+non-overlapping group lasso method to it.
+
 
 \subsection{Artificial Data}
 
