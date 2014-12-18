@@ -246,7 +246,7 @@ To get rid of all these problems and validate the effectiveness of our model, we
 
 \begin{figure}[ht]
 \begin{center}
-	\includegraphics[width=5cm, natwidth=200, natheight=206]{m_img}
+	\includegraphics[width=.5\linewidth]{m_img}
 	\caption{Group-wise sparse weight matrix generated: 5 classes, 25 features in 5 groups}
 \end{center}
 \end{figure}
@@ -266,27 +266,31 @@ Shape Recovery. One of the main indicator of the effectiveness of our model is t
 
 
 \begin{figure}[ht]
-\centering
-\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{m1_img}
+  \includegraphics[width=.5\linewidth]{m1_img}
   \caption{Target group-wise sparse weight matrix generated: 5 classes, 25 features in 5 groups}
-  \label{fig:sub1}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
+\end{figure}%
+
+\begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\linewidth]{m2_img}
+  \includegraphics[width=.9\linewidth]{m2_img}
   \caption{Weight matrix calculated from the training data. It's similar to the one generated.}
-  \label{fig:sub2}
-\end{subfigure}
-\caption{add caption}
-\label{fig:test}
 \end{figure}
 
 
 The different weights between the calculated matrix and the target matrix can be due to many factors. First, sample coverage is a major factor. In our simulation data, the sample size is small. Limited by the time complexity of the algorithm, it's difficult to complete the computation for a very large sample size in a reasonable time. Also, the sampling is random. There is no guaranteed that the inferred weights leads to the target weights. \\   
 
-Accuracy. In our experiments, the generator algorithm was configured to produce 150 random vectors from the underlying model where it consists of 5 classes and 25 features in 5 groups. The accuracy achieved was about $60\%$ to $70\%$. \\
+Accuracy. In our experiments, the generator algorithm was configured to produce 150 random vectors from the underlying model where it consists of 5 classes and 25 features in 5 groups. The accuracy achieved is closely related to the L2-norm regularization constant $\lambda$. The following figure shows the relation between lambda-accuracy and lambda-density.\\
+
+\begin{figure}[ht]
+\begin{center}
+	\includegraphics[width=\linewidth]{m3_img}
+	\caption{lambda-accuracy and lambda-density plot (150 samples, 5 classes, 25 features in 5 groups)}
+\end{center}
+\end{figure}
+
+
+
 
 \section{Conclusion}
 % include your own bib file like this:

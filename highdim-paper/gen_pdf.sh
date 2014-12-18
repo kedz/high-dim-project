@@ -1,2 +1,3 @@
-latex paper.tex && dvipdfm paper.dvi
+#latex paper.tex && dvipdfm paper.dvi
+pdflatex paper.tex
 
