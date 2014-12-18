@@ -197,13 +197,11 @@ Given n training vectors $x_i \in R_d$ and their class labels $y_i \in \{1, ...,
 
 In our model, we minimize the following objective function : \\
 
-$minimize_{W \in R^{d x m}} F(W) = $
+$$ \min_{W \in R^{d x m}} F(W) = $$
+$$\frac{1}{n} \sum_{i=1}^{n} \sum_{r \neq y_i } \max(1 - ( W_{:y_i}^T \cdot x_i - W_{:r}^T \cdot x_i) , 0 )^2 $$
+$$ + \lambda \sum_{g \in \mathcal{G}} \sum_{r=1}^{d} \| W_{g,r} \|_2$$ \\
 
-$\frac{1}{n} \sum_{i=1}^{n} \sum_{r \neq y_i } max(1 - W_{:y_i} \cdot x_i + W_{:r} \cdot x_i , 0 )^2 $
-
-$ + \lambda \sum_{g=1}^{|G|} \sum_{m=1}^{d} \| W_{g,m} \|_2$ \\
-
-The first term is the multiclass squared hinge loss function. We want the dot product of an instance and its feature vector to be as large as possible, and the dot product of this instance and the rest feature vectors to be as small as possible. And as long as their difference is greater then a margin ($1$ in this case), we won't penalize it. In the second term, $W_{g,m}$ means a block of weights in group $g$ and class $m$. The L2 norm regulization is computed and sum up for each block. The $\lambda > 0$ is a parameter controls the trade-off between the hinge loss and the L2-norm regulization.  \\
+The first term is the multiclass squared hinge loss function. We want the dot product of an instance and its feature vector to be as large as possible, and the dot product of this instance and the rest feature vectors to be as small as possible. And as long as their difference is greater then a margin ($1$ in this case), we won't penalize it. In the second term, $W_{g,r}$ means a block of weights in group $g$ and class $m$. The L2-norm regulization is computed and sum up for each block. The $\lambda > 0$ is a parameter controls the trade-off between the hinge loss and the L2-norm regulization.  \\
 
 
 
@@ -213,7 +211,7 @@ The first term is the multiclass squared hinge loss function. We want the dot pr
 
 \subsubsection{Group Identification}
 
-\subsection{Artificial data}
+\subsection{Artificial Data}
 
 For the datasets described above, we can't tell with 100 percent confidence that the datasets follow the assumptions of the group structures for the features. And even if they are indeed structured that way, we maybe wrong with the method of coming up with the groups. These issues make it difficult to access our model.\\ 
 
@@ -221,17 +219,41 @@ To get rid of all these problems and validate the effectiveness of our model, we
 
 \begin{figure}[ht]
 \begin{center}
-	\includegraphics[natwidth=200, natheight=306]{m_img}
-	\caption{Group-wise sparse weight matrix generated: 6 classes, 30 features in 5 groups}
+	\includegraphics[width=5cm, natwidth=200, natheight=206]{m_img}
+	\caption{Group-wise sparse weight matrix generated: 5 classes, 25 features in 5 groups}
 \end{center}
 \end{figure}
 
-Then we generate random vectors, each of which has the length of the number of all features, and calculate dot product with the weight matrix W to get the class assignments for these random vectors. The random vetors X and the class assignments Y make up the training data set. \\
+Then we generate random vectors, each of which has a length of the number of all features, and calculate dot product with the weight matrix W to get the class assignments for these random vectors. The random vetors X and the class assignments Y make up the training data set. \\
 
 Our goal is to infer this weight matrix W from X and Y using our model. By generating the data set using this method, we can test the effectiveness of our model on a noiseless dataset with right underlying assumptions.\\ 
 
 
 \section{Results}
+
+\subsection{Newsgroup Data}
+
+\subsection{Artificial Data}
+
+Shape Recovery. One of the main indicator of the effectiveness of our model is to see whether the calculated weight matrix is sparse group-wise. Our experiments show so. The following figures shows in a typical trial, the generated target weight matrix and the recovered weight matrix by our model. By comparing them side by side, we can tell that their sparsity patterns are similar. 
+
+\begin{figure}[ht]
+\begin{center}
+	\includegraphics[width=5cm, natwidth=200, natheight=307]{m1_img}
+	\caption{Target group-wise sparse weight matrix generated: 5 classes, 25 features in 5 groups}
+\end{center}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+	\includegraphics[width=8cm,natwidth=200, natheight=186]{m2_img}
+	\caption{Weight matrix calculated from the training data. It's similar to the one generated.}
+\end{center}
+\end{figure} 
+
+The different weights between the calculated matrix and the target matrix can be due to many factors. First, sample coverage is a major factor. In our simulation data, the sample size is small. Limited by the time complexity of the algorithm, it's difficult to complete the computation for a very large sample size in a reasonable time. Also, the sampling is random. There is no guaranteed that the inferred weights leads to the target weights. \\   
+
+Accuracy. In our experiments, the generator algorithm was configured to produce 150 random vectors from the underlying model where it consists of 5 classes and 25 features in 5 groups. The accuracy achieved was about $60\%$ to $70\%$. \\
 
 \section{Conclusion}
 % include your own bib file like this:
