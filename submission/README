@@ -1,5 +1,6 @@
 How to run our code
-    To run our code you need following libraries:
+
+    To run our code you need following libraries (*) 
         ligntning
         nltk
         numpy
@@ -8,4 +9,13 @@ How to run our code
     You could use pip to install them. 
         pip install -U numpy scipy nltk scikit-learn
         pip install -U https://github.com/mblondel/lightning/archive/master.zip
+
+	To run the newsgroups test:
+		python ogroup_test_3ng.py	
+
+	To run the synthetic data test:
+		python newimplgroup_syn.py
+
+
+* We implemented the core algorithm by ourselves. The 'ligntning' lib is for the result comparison.
 
