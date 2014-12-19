@@ -64,8 +64,8 @@
 %\end{abstract}
 
 \section{Introduction}
-We motivate our project by considering the text classification problem: 
-can we accurately classify text documents by topic. With the rapid growth 
+Our motivation for this project comes from text classification problem: 
+can we accurately classify text documents by topics. With the rapid growth 
 of online information, text categorization has become one of the key techniques 
 for handling and organizing text data. Text categorization techniques are used 
 not only to filter spam emails, as we are mostly familiar, but also to classify 
@@ -260,17 +260,17 @@ non-overlapping group lasso method to it.\\
 %co-occurence matrix
 Another way to create groups for features is to use information in the co-occurence matrix. An co-occurence matrix is a n by n symmetric matrix, where $n$ here is the number of all the features. A cell in row $i$, column $j$ represents the frequency that feature $i$ and feature $j$ appear at the same time in articles. The co-occurence matrix is computed from $M^T M$, where $M$ is the document-to-feature matrix. \\
 
-Given the co-occurence matrix $Z$, a simple greedy algorithm below is used to generates groups for the features.
+Given the co-occurence matrix $Z$, a simple greedy algorithm below is used to generates groups for the features. The algorithm generates non-overlapping groups. To generate overlapping groups, skip step 3.
 
 \begin{algorithm}
   \For{$i \gets 0, \ldots, rows(Z) $}{
-	   Get the indices of the N largest columns from row i\\
-       Output these indices to a new group\\
-       Mark all cells in these columns in the matrix Z to be 0.\\
+	   1) Get the indices of the N largest columns from row i\\
+       2) Output these indices to a new group\\
+       3) Mark all cells in these columns in the matrix Z to be 0.\\
   }
 \end{algorithm}
 
-Groups created from this method are more meaning semantically and more granular. Further granularty can be achieved by couting the frequency of two features in sentence level other than article level.\\
+Groups created from this method are more meaningful semantically and more granular. Further granularty can be achieved by couting the frequency of two features in sentence level other than article level.\\
 
 \subsection{Artificial Data}
 
