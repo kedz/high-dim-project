@@ -1,0 +1,11 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citename{Blondel \bgroup et al.\egroup
+  }2013]{blondel2013block}
+Mathieu Blondel, Kazuhiro Seki, and Kuniaki Uehara.
+\newblock 2013.
+\newblock Block coordinate descent algorithms for large-scale sparse multiclass
+  classification.
+\newblock {\em Machine learning}, 93(1):31--52.
+
+\end{thebibliography}
