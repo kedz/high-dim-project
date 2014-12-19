@@ -12,13 +12,17 @@ from nltk import PorterStemmer
 def get_data():
 	stem = PorterStemmer().stem_word
 
+	categories=['alt.atheism', 'comp.graphics', 'misc.forsale']
+	print "Retrieving articles from categories :",categories
+
 	newsgroups_train = fetch_20newsgroups(
-		categories=['alt.atheism', 'comp.graphics', 'misc.forsale'],
+		categories=categories,
 		subset='train', remove=('headers', 'footers', 'quotes'))
 
 	newsgroups_train.data = newsgroups_train.data[0:200]
 	newsgroups_train.target = newsgroups_train.target[0:200]
 
+	print "Pre-processing ... "
 	f = open("stopwords")
 	lines = f.readlines()
 	stoplist = set([ line.strip() for line in lines])
@@ -49,15 +53,13 @@ def get_data():
 				if word not in infrequent_words}
 				for text in texts]
 
-	print len(texts)
+	print "Number of articles : ",len(texts)
 
 	vec = DictVectorizer(dtype=np.int32)
 	X_train = vec.fit_transform(texts)
 
 	trans = TfidfTransformer()
 	X_train = trans.fit_transform(X_train)
-
-	print X_train.shape
 
 	y_train = newsgroups_train.target
 
@@ -88,7 +90,7 @@ def get_data():
 			already_chosen.add(v)
 		return words
 
-
+	print "Calculating co-occurence matrix and transforming data ..."
 	XX = X_train_bin.T.dot(X_train_bin)
 	already_chosen = set()
 	groups = []

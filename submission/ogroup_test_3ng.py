@@ -23,12 +23,13 @@ X_train = Xnew
 y_train = y_train
 
 
-print "### BASELINE GROUP LASSO in pure python/numpy###"
+print "==== Block-wise group lasso ===="
 X = X_train
 y = y_train
 clf = ogroup.BaselineGroupLasso(max_iter=50, alpha=.01,  max_steps=50)
 clf.fit(X, y, groups)
-print "Acc:", clf.score(X, y)
+print "=========>> Accuracy :", clf.score(X, y)
+print "Weight Matrix:"
 print (clf.coefs_)
 
 
@@ -36,6 +37,7 @@ import heapq
 
 top_words =  30
 
+print "==== Keywords ==== "
 for m in xrange(clf.coefs_.shape[1]):
 	t = []
 	print 'Topic',m
@@ -47,7 +49,7 @@ for m in xrange(clf.coefs_.shape[1]):
 	print
  
 
-print "### Equivalent Lightning Cython Implementation ###"
+print "==== Lightning Cython Implementation (Row-wise sparsity) ====="
 light_clf = CDClassifier(penalty="l1/l2",
                          loss="squared_hinge",
                          multiclass=True,
@@ -58,7 +60,8 @@ light_clf = CDClassifier(penalty="l1/l2",
                          permute=False,
                          verbose=3,
                          random_state=0).fit(X, y)
-print "Acc:", light_clf.score(X, y)
+print "==========>> Accuracy :", light_clf.score(X, y)
+print "Weight Matrix:"
 print (light_clf.coef_.T)
 
 

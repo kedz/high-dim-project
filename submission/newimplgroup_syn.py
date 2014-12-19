@@ -118,6 +118,8 @@ def score(X, y, coefs_):
 
 np.set_printoptions(precision=3)
 
+############## Generating synthetic data #############
+
 m_classes = 5
 m_features = 25
 m_groups = 5
@@ -126,9 +128,15 @@ multiple = 1.3
 m_samples = 150
 attemp = 0
 
+print "Generating synthetic data ..."
+print "# of classes  :", m_classes
+print "# of features :", m_features
+print "# of groups   :", m_groups
+print "# of samples  :", m_samples
+
 while 1:
     attemp +=1
-    print 'attemp', attemp
+    #print 'Attemp', attemp
     groups = []
     weights = np.zeros((m_features,m_classes))
     idx = 0
@@ -148,10 +156,11 @@ while 1:
     X = np.random.rand(m_samples,m_features)
     pred = safe_sparse_dot(X, weights)
     y_pred = np.argmax(pred, axis=1)
-    print 'unique classes',  np.unique(y_pred).shape[0]
+    #print 'Unique classes',  np.unique(y_pred).shape[0]
     if np.unique(y_pred).shape[0] == m_classes:
         break
 
+print "================= Data Summary  ======================"
 print 'weights', weights
 print 'groups', groups
 print 'y_pred', y_pred
@@ -162,7 +171,8 @@ sys.stdin.readline()
 X_train = X
 y_train = y_pred
 
-
+print "========= Group Lasso (Block-wise sparsity)========="
+print "** Slow version **"
 X = X_train
 y = y_train
 n_features = X.shape[1]
@@ -174,13 +184,13 @@ coefs_ = np.zeros((n_features, n_classes))
 
 fit( ds, y, one_over_n, n_samples, n_features, n_classes,coefs_,groups)
 s =  score (X,y,coefs_)
-print "score = ", s
+print "=====> Accuracy : ", s
 
 print '======================================================'
 
 clf_max_iter=300
 clf_tol = 1e-3
-print "### Equivalent Lightning Cython Implementation ###"
+print "========= Lightning Cython Implementation (Row-wise sparsity)========="
 light_clf = CDClassifier(penalty="l1/l2",
                          loss="squared_hinge",
                          multiclass=True,
@@ -191,7 +201,7 @@ light_clf = CDClassifier(penalty="l1/l2",
                          permute=False,
                          verbose=3,
                          random_state=0).fit(X, y)
-print "Acc:", light_clf.score(X, y)
+print "=====> Accuracy : ", light_clf.score(X, y)
 print light_clf.coef_.T
 
 
