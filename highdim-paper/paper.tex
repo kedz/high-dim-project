@@ -255,8 +255,22 @@ non-zero features for each document in the group.
 
 We then used these feature groups to created a higher dimensional dataset of
 duplicate features with non-overlapping groups, so that we could apply our
-non-overlapping group lasso method to it.
+non-overlapping group lasso method to it.\\
 
+%co-occurence matrix
+Another way to create groups for features is to use information in the co-occurence matrix. An co-occurence matrix is a n by n symmetric matrix, where $n$ here is the number of all the features. A cell in row $i$, column $j$ represents the frequency that feature $i$ and feature $j$ appear at the same time in articles. The co-occurence matrix is computed from $M^T M$, where $M$ is the document-to-feature matrix. \\
+
+Given the co-occurence matrix $Z$, a simple greedy algorithm below is used to generates groups for the features.
+
+\begin{algorithm}
+  \For{$i \gets 0, \ldots, rows(Z) $}{
+	   Get the indices of the N largest columns from row i\\
+       Output these indices to a new group\\
+       Mark all cell in these columns in the matrix Z to be 0.\\
+  }
+\end{algorithm}
+
+Groups created from this method are more meaning semantically and more granular. Further granularty can be achieved by couting the frequency of two features in sentence level other than article level.\\
 
 \subsection{Artificial Data}
 
@@ -279,6 +293,17 @@ Our goal is to infer this weight matrix W from X and Y using our model. By gener
 \section{Results}
 
 \subsection{Newsgroup Data}
+
+Given limited resources, in our experiments we randomly select 200 articles from 3 news groups as the training data set. The selected articles are pre-processed to remove invalid words, stop words, low-frequency words. The co-occurence matrix method is used to generates groups. The maximal number of features in a group is set to 10. There are 37 groups created from the training data set. Then, all the features are re-ordered so that those belong to the same group are next to each other. The training vectors are aslo transformed to match the re-ordered features.\\  
+
+The resulting weight matrix recoved is shown partically as below. The accuracy of the prediction is 93\%. The sparsity of the matrix is 52\% and the matrix is group-wise sparse.\\
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{m4_img}
+  \caption{Part of the Weight matrix computed from 200 articles from 3 topics. Each column is one topic class. Each row is a feature/word.}
+\end{figure}%
+
 
 \subsection{Artificial Data}
 

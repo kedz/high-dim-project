@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.27)  18 DEC 2014 14:44
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.27)  18 DEC 2014 21:00
 entering extended mode
  %&-line parsing enabled.
 **paper.tex
@@ -311,94 +311,137 @@ Underfull \hbox (badness 10000) in paragraph at lines 231--232
  []
 
 [2]
-Underfull \hbox (badness 1210) in paragraph at lines 263--264
+Underfull \hbox (badness 10000) in paragraph at lines 256--259
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 261--262
+
+ []
+
+
+Underfull \hbox (badness 1953) in paragraph at lines 263--264
+\OT1/ptm/m/n/10.95 greedy al-go-rithm be-low is used to gen-er-ates
+ []
+
+
+Underfull \hbox (badness 1112) in paragraph at lines 273--274
+[]\OT1/ptm/m/n/10.95 Groups cre-ated from this method are more
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 273--274
+
+ []
+
+
+Underfull \hbox (badness 1210) in paragraph at lines 277--278
 \OT1/ptm/m/n/10.95 with 100 per-cent con-fi-dence that the datasets
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 263--264
+Underfull \hbox (badness 10000) in paragraph at lines 277--278
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--266
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
  []
 
 <m_img.jpg, id=21, 200.75pt x 309.155pt>
 File: m_img.jpg Graphic file (type jpg)
  <use m_img.jpg>
-Underfull \hbox (badness 1052) in paragraph at lines 274--275
+Underfull \hbox (badness 1052) in paragraph at lines 288--289
 []\OT1/ptm/m/n/10.95 Then we gen-er-ate ran-dom vec-tors, each of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 274--275
+Underfull \hbox (badness 10000) in paragraph at lines 288--289
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 276--277
+Underfull \hbox (badness 10000) in paragraph at lines 290--291
 
  []
 
-<m1_img.png, id=22, 200.75pt x 308.15125pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
+
+ []
+
+
+Underfull \vbox (badness 1178) has occurred while \output is active []
+
+ [3]
+Underfull \hbox (badness 10000) in paragraph at lines 299--300
+
+ []
+
+<m4_img.png, id=25, 311.1625pt x 307.1475pt>
+File: m4_img.png Graphic file (type png)
+ <use m4_img.png>
+<m1_img.png, id=27, 200.75pt x 308.15125pt>
 File: m1_img.png Graphic file (type png)
  <use m1_img.png>
-<m2_img.png, id=24, 483.8075pt x 440.64626pt>
+<m2_img.png, id=28, 483.8075pt x 440.64626pt>
 File: m2_img.png Graphic file (type png)
  <use m2_img.png>
-Underfull \hbox (badness 2205) in paragraph at lines 301--302
+Underfull \hbox (badness 2205) in paragraph at lines 326--327
 \OT1/ptm/m/n/10.95 that the in-ferred weights leads to the tar-get
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 301--302
+Underfull \hbox (badness 10000) in paragraph at lines 326--327
 
  []
 
-[3 <./m_img.jpg>]
-Underfull \hbox (badness 1137) in paragraph at lines 303--304
+
+Underfull \hbox (badness 1137) in paragraph at lines 328--329
 \OT1/ptm/m/n/10.95 it con-sists of 5 classes and 25 fea-tures in 5
  []
 
 
-Underfull \hbox (badness 3590) in paragraph at lines 303--304
+Underfull \hbox (badness 3590) in paragraph at lines 328--329
 \OT1/ptm/m/n/10.95 fol-low-ing fig-ure shows the re-la-tion be-tween
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 303--304
+Underfull \hbox (badness 10000) in paragraph at lines 328--329
 
  []
 
-<m3_img.jpg, id=28, 562.1pt x 421.575pt>
+<m3_img.jpg, id=29, 562.1pt x 421.575pt>
 File: m3_img.jpg Graphic file (type jpg)
- <use m3_img.jpg> [4 <./m1_img.png> <./m2_img.png> <./m3_img.jpg>] (./paper.aux
-) ) 
+ <use m3_img.jpg> [4 <./m_img.jpg> <./m4_img.png>] [5
+
+ <./m1_img.png> <./m2_img.png> <./m3_img.jpg>] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 4124 strings out of 495061
- 58194 string characters out of 1182621
+ 4129 strings out of 495061
+ 58263 string characters out of 1182621
  154257 words of memory out of 3000000
- 7271 multiletter control sequences out of 15000+50000
+ 7275 multiletter control sequences out of 15000+50000
  19668 words of font info for 52 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  36i,15n,38p,616b,334s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texl
-ive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/t
-ype1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public
-/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmmi6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb>
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/
-texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive
-/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type
-1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
-fonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb
-></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-t
-exlive/fonts/type1/urw/times/utmr8a.pfb>
-Output written on paper.pdf (4 pages, 279083 bytes).
+{/usr/share/texmf
+-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
+/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.
+pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/sh
+are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/
+amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
+/cmsy6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
+/usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-t
+exlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/u
+rw/times/utmr8a.pfb>
+Output written on paper.pdf (5 pages, 297276 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
+ 80 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
