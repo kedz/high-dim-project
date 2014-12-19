@@ -8,4 +8,11 @@ Mathieu Blondel, Kazuhiro Seki, and Kuniaki Uehara.
   classification.
 \newblock {\em Machine learning}, 93(1):31--52.
 
+\bibitem[\protect\citename{Obozinski \bgroup et al.\egroup
+  }2011]{obozinski2011group}
+Guillaume Obozinski, Laurent Jacob, and Jean-Philippe Vert.
+\newblock 2011.
+\newblock Group lasso with overlaps: the latent group lasso approach.
+\newblock {\em arXiv preprint arXiv:1110.0413}.
+
 \end{thebibliography}

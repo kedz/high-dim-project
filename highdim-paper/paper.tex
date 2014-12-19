@@ -182,7 +182,7 @@ If we were to construct groupings of these features, we might run into a case
 where one word could reasonably be added to several groups. The overlapping or
 latent group lasso was introduced to handled such cases.
 
-??? develop a theoretical justification for the latent group lasso, as well
+\cite{obozinski2011group} developed a theoretical justification for the latent group lasso, as well
 as its equivalence to a regular group lasso in a higher dimensional space.
 Let $\mathcal{G}$ be the set of (possibly overlapping) groups,
 where $g \in \mathcal{G}$ is a set of indices of covariates associated with 
@@ -201,19 +201,18 @@ to the indices in the group $g$.
 The original weight vector $w$ can be
 interpreted as a sum of the latent vectors, or
 $w = \sum_{g \in \mathcal{G}} v^g$. 
-??? arrive at the following minimization
-problem 
+So now the minimization problem is
 $$ \min_{w, v^g} l(w) + \lambda \sum_{g \in \mathcal{G}} d_g \|v^g \|_2 $$
 $$\mathrm{s.t.}\;\;\; w = \sum_g v^g$$ 
 
 
 
-??? show that when the original problem is regression, 
+When the original problem is regression, 
 $w^Tx = \left(\sum_g v^g\right)^Tx = \hat{v}^T \hat{x}$ where 
 $\hat{v} = (v^{g})_{g \in \mathcal{G}}$ and
 $\hat{x} = \bigoplus_{g \in \mathcal{G} } (x_i)_{i \in g}$, i.e. $\hat{x}$ is
 the restrictions of each $g$ stacked on top of each other. $\hat{x}, \hat{v}$ 
-have dimension $\sum_{g \in \mathcal{G}} |g|$ 
+have dimension $\sum_{g \in \mathcal{G}} |g|$.
 In this formulation, the optimal $\hat{v}^*$ can be found using regular 
 non-overlapping group lasso. 
 
