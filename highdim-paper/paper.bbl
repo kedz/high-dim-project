@@ -1,0 +1,18 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citename{Blondel \bgroup et al.\egroup
+  }2013]{blondel2013block}
+Mathieu Blondel, Kazuhiro Seki, and Kuniaki Uehara.
+\newblock 2013.
+\newblock Block coordinate descent algorithms for large-scale sparse multiclass
+  classification.
+\newblock {\em Machine learning}, 93(1):31--52.
+
+\bibitem[\protect\citename{Obozinski \bgroup et al.\egroup
+  }2011]{obozinski2011group}
+Guillaume Obozinski, Laurent Jacob, and Jean-Philippe Vert.
+\newblock 2011.
+\newblock Group lasso with overlaps: the latent group lasso approach.
+\newblock {\em arXiv preprint arXiv:1110.0413}.
+
+\end{thebibliography}
