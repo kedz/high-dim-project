@@ -1,0 +1,11 @@
+How to run our code
+    To run our code you need following libraries:
+        ligntning
+        nltk
+        numpy
+        scipy
+        scikit-learn (>=0.13)
+    You could use pip to install them. 
+        pip install -U numpy scipy nlt kscikit-learn
+        pip install -U https://github.com/mblondel/lightning/archive/master.zip
+
