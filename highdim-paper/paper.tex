@@ -122,7 +122,7 @@ function:
 
 $$\min_W l(W) + r(W).$$
 
-Many choices are available for the regularizer $r$. In \cite{blondel2013block}, they use
+Many choices are available for the regularizer $r$. \cite{blondel2013block} uses
 the group lasso, where each row in $W$ is a group. The associated regularizer 
 then is $r(W) = \lambda\sum_j^p \|W_{j:}\|_2$ where $\lambda$ is a parameter
 that adjusts the strength of the regularization.
@@ -131,15 +131,16 @@ since each row corresponds to an individual feature, the optimal sparse $W^*$
 yields a fast-evaluating decision function, i.e. most features are 
 ignored at test time.
 
-To minimize this multiclass classification group lasso objective, ??? use 
-coordiante descent, iteratively solving a sub-problem with respect to a 
-single group. Figure ? shows a general outline of algorithm that involves
+To minimize this multi-class classification group lasso objective, coordinate descent method could be used, which iteratively solve a sub-problem with respect to a 
+single group. Algorithm~\ref{fig:cooddes} shows a general outline of algorithm that involves
 computing the partial gradient with respect to the 
 current group $j$, the prox
 operator of the L2 norm, and a final line search to identify an appropriate
 step size for the current update.
 
 \begin{algorithm}
+\caption{coordinate descent among groups}
+\label{fig:cooddes}
  \For{$i \gets 1, \ldots, max\;iters $}{
      \For{$j \gets 1, \ldots, p$}{
         Compute gradient $l^\prime(W)_{j:}$\\
